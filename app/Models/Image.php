@@ -21,7 +21,7 @@ class Image extends Model
         {
          Storage::delete($this->attributes['location']);            
         }
-        $path = $file->store('public/clients');
+        $path = $file->store('public/items');
         $this->attributes['location'] =$path;
     }
 

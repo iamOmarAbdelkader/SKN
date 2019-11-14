@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Storage;
+use File;
 class Item extends Model
 {
     //
@@ -11,6 +13,18 @@ class Item extends Model
     'available_from','available_to'];
     
     protected $dates = ['available_from','available_to'];
+
+    protected static function boot() {
+        parent::boot();
+        static::deleting(function(Item $item) {
+            \Log::info('in deleting item');
+            foreach ($item->images as $image)
+            {
+                \Log::info(Storage::delete($image->attributes['location'])); 
+                \Log::info($image->attributes['location']);
+            }
+        });
+    }
 
     /**
      * Get the images for the item.
