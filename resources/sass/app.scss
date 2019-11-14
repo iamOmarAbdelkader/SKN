@@ -1,0 +1,15 @@
+
+@import 'node_modules/bootstrap/scss/bootstrap';
+@import 'node_modules/bootstrap-vue/src/index.scss';
+// Variables
+@import "variables";
+
+
+body {
+    background-color: $body-bg;
+    height: 100vh;
+}
+
+textarea.form-control{
+    overflow-y: initial !important;
+}
