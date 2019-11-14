@@ -4,28 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use Illuminate\Http\Request;
-
+use Validator;
 class ItemController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -35,7 +16,28 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'user_id'       =>'required',
+            'name'          =>'required|string|min:4',
+            'price'         =>'required|numeric',
+            'available_from' =>"required|date|before:available_to",
+            'available_to'   =>"required|date|after:available_from",
+            'phone'         =>'required|numeric|min:11|regex:/(0)([0-9]{10})/',
+            'images'        =>'required|array|max:4',
+            'images.*'      =>'required|mimes:jpg,jpeg,png,bmp|max:2000000,'
+        ]);
+
+        if ($validator->fails())
+            return response()->json(['errors'=>$validator->errors()]);
+        
+        // create the item
+        $item = Item::create($request->except('images'));
+        foreach($request->images as $image){
+            $item->images()->create(['location'=>$image]);
+        }
+
+        return response()->json(['msg'=>'new item added successfully','item'=>$item->with('images')->get()]);
+
     }
 
     /**

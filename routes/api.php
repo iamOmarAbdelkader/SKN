@@ -37,6 +37,8 @@ Route::group(['middleware'=>'jwt.auth'],function(){
             'test'=>'test value'
         ]);
     });
+
+    Route::resource('item', 'ItemController');
 });
 
 
