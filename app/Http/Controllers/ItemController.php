@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use Validator;
+use App\Http\Resources\Item as ItemResource;
 class ItemController extends Controller
 {
 
@@ -49,6 +50,7 @@ class ItemController extends Controller
     public function show(Item $item)
     {
         //
+        return new ItemResource($item);
     }
 
     /**

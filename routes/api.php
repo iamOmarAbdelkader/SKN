@@ -38,7 +38,10 @@ Route::group(['middleware'=>'jwt.auth'],function(){
         ]);
     });
 
-    Route::resource('item', 'ItemController');
+    Route::post('item','ItemController@store');
+    Route::get('item/{item}','ItemController@show');
+    Route::get('item/destroy/{item}','ItemController@destroy');
+
 });
 
 
