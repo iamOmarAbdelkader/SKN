@@ -20,7 +20,7 @@ class CreateItemsTable extends Migration
             $table->char('phone',11);
             $table->date('available_from');
             $table->date('available_to');
-            $table->integer('user_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
             $table->timestamps();
 
             $table
