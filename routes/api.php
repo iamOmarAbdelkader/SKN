@@ -34,10 +34,9 @@ Route::group(['prefix'=>'auth','namespace'=>'Auth','middleware'=>['jwt.auth']],f
 Route::group(['middleware'=>'jwt.auth'],function(){
     Route::get('/test',function(){
         return response()->json([
-            'test'=>'hahahhhahah'
+            'test'=>'test value'
         ]);
     });
-    Route::ApiResource('todo','TodoController');
 });
 
 

@@ -14,7 +14,6 @@ class AuthController extends Controller
     {
         $user = new User;
         $user->name = $request->get('name');
-        $user->email = $request->get('email');
         $user->password = bcrypt($request->get('password'));
         $user->save();
         return response([
@@ -24,7 +23,7 @@ class AuthController extends Controller
     }
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('name', 'password');
         if ( !$token = JWTAuth::attempt($credentials)) {
             return response([
                 'status' => 'error',
@@ -33,7 +32,7 @@ class AuthController extends Controller
             ], 400);
         }
         return response([
-            'status' => 'success',
+            'msg' => 'you are login successfully',
         ])
         ->header('Authorization', $token);
     }
