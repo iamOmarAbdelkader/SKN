@@ -36,7 +36,7 @@ class ItemController extends Controller
             $item->images()->create(['location'=>$image]);
         }
 
-        return response()->json(['msg'=>'new item added successfully','item'=>$item->with('images')->get()]);
+        return response()->json(['msg'=>'new item added successfully']);
 
     }
 
