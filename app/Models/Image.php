@@ -7,7 +7,14 @@ use Storage;
 class Image extends Model
 {
     //
+    
     protected $fillable = ['location'];
+
+    /**
+     * set location attribute .
+     *
+     * @param  File $file
+     */
     public function setLocationAttribute($file)
     {
         if(isset($this->attributes['location']))
@@ -18,6 +25,11 @@ class Image extends Model
         $this->attributes['location'] =$path;
     }
 
+    /**
+     * get location attribute .
+     *
+     * @return string $src
+     */
     public function getLocationAttribute()
     {
         if($this->attributes['location'])
